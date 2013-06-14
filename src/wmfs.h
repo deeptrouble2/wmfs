@@ -165,6 +165,7 @@ struct screen
 #define SCREEN_TAG_UPDATE 0x01
      Flags flags;
      int id;
+     struct client *last_client;
      TAILQ_HEAD(tsub, tag) tags;
      SLIST_HEAD(, infobar) infobars;
      SLIST_ENTRY(screen) next;

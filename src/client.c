@@ -642,6 +642,7 @@ client_focus(struct client *c)
      if((W->client = c))
      {
           c->tag->sel = c;
+          c->screen->last_client = c;
           client_grabbuttons(c, true);
           client_tab_focus(c);
           client_frame_update(c, CCOL(c));
@@ -709,6 +710,10 @@ client_close(struct client *c)
      int proto;
      XEvent ev;
      Atom *atom = NULL;
+    
+     if (c->screen->last_client == c) {
+         c->screen->last_client = NULL;
+     }
 
      /* Event will call client_remove */
      if(XGetWMProtocols(W->dpy, c->win, &atom, &proto) && atom)

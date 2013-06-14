@@ -22,6 +22,7 @@ screen_new(struct geo *g, int id)
      s->seltag = NULL;
      s->id = id;
      s->flags = 0;
+     s->last_client = NULL;
 
      TAILQ_INIT(&s->tags);
      SLIST_INIT(&s->infobars);
@@ -97,11 +98,17 @@ screen_select(struct screen *s)
                   s->ugeo.y + (s->ugeo.h >> 1));
 
      W->screen = s;
+     if (s->last_client) {
+         client_focus(s->last_client);
+     }
 }
 
 void
 uicb_screen_next(Uicb cmd)
 {
+     if (W->screen) {
+        W->screen->last_client = W->client;
+     }
      struct screen *s = SLIST_NEXT(W->screen, next);
      (void)cmd;
 
