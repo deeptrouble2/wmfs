@@ -54,6 +54,7 @@ void client_remove(struct client *c);
 void client_free(void);
 void _fac_resize(struct client *c, enum position p, int fac);
 void client_apply_tgeo(struct tag *t);
+void uicb_client_maximize(Uicb);
 
 #define CPROP_LOC  0x01
 #define CPROP_FLAG 0x02

@@ -678,6 +678,31 @@ uicb_client_focus_click(Uicb cmd)
           client_focus(c);
 }
 
+void
+uicb_client_maximize(Uicb cmd)
+{
+     struct client *c;
+     (void)cmd;
+
+     if(!(W->client))
+          return;
+
+     W->client->flags ^= CLIENT_FREE;
+
+     layout_client(W->client);
+
+     /* Set tabbed client of toggled client as free */
+     if(W->client->flags & CLIENT_TABMASTER)
+     {
+          SLIST_FOREACH(c, &W->client->tag->clients, tnext)
+               if(c->tabmaster == W->client && c != W->client)
+                    c->flags ^= CLIENT_FREE;
+     }
+     if (W->client->flags & CLIENT_FREE) {
+        client_maximize(W->client);
+     }
+}
+
 /** Get a client name
  * \param c struct client pointer
 */

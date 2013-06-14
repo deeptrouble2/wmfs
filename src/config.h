@@ -83,6 +83,7 @@ static const struct { char *name; void (*func)(Uicb cmd); } uicb_list[] =
      { "client_toggle_free",       uicb_client_toggle_free },
      { "client_toggle_ignore_tag", uicb_client_toggle_ignore_tag },
      { "client_tab_next_opened",   uicb_client_tab_next_opened },
+     { "client_maximize",          uicb_client_maximize },
 
      /* Status */
      { "status" ,        uicb_status },
